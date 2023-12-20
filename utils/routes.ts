@@ -1,4 +1,4 @@
-import { Roles } from 'definitions/enums'
+import { Roles } from 'definitions/enums/globals'
 
 export const exampleRoutes = {
   home: { path: '/', allowedRoles: [] },
