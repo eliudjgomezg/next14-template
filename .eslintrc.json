@@ -1,0 +1,45 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "no-console": ["warn", { "allow": ["warn", "info", "error"] }],
+    "jsx-quotes": ["error", "prefer-double"],
+    "tailwindcss/no-custom-classname": "off",
+    "enforces-negative-arbitrary-values": "off",
+    "react/prop-types": "error",
+    "no-redeclare": "off",
+
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal"],
+        "pathGroups": [
+          {
+            "pattern": "{react,next/**,next}",
+            "group": "builtin"
+          },
+          {
+            "pattern": "@pdv/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "services/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "group": "internal",
+            "pattern": "~/**",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
+  }
+}
