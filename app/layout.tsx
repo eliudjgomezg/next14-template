@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 
+import 'assets/styles/colors.css'
+import 'assets/styles/html-core.css'
+import 'assets/styles/globals.css'
 import 'assets/styles/globals.css'
 import { montserrat } from 'assets/styles/fonts'
 import { LoaderContextProvider } from 'context/LoaderContext'
