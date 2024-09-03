@@ -2,7 +2,12 @@
 
 import { ReactNode } from 'react'
 
+import dayjs from 'dayjs'
 import { SnackbarProvider } from 'notistack'
+
+import 'dayjs/locale/es-mx'
+
+dayjs.locale('es-mx')
 
 const SnackBarProvider = (props: { children: ReactNode }) => {
   return (

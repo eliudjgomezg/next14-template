@@ -1,9 +1,9 @@
-export enum ApiVersion {
+export enum ApiVersionEnum {
   V1 = 'v1',
   V2 = 'v2',
 }
 
-export enum Roles {
+export enum RolesEnum {
   ADMIN = 'admin',
   TEACHER = 'teacher',
   STUDENT = 'alumno',

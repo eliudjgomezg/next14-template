@@ -2,10 +2,10 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 
 import { Example } from 'definitions/types/Example'
 import { Delete, Params, Post, Put, ReactQueryOptions } from 'definitions/types/Request'
+import useLoader from 'hooks/useLoader'
 import useMutationAlert from 'hooks/useMutationAlert'
 import { apiClient } from 'utils/ApiClient'
 
-import useLoader from '../hooks/useLoader'
 
 const endpoints = {
   examples: `todos`,

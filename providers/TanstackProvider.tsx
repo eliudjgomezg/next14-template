@@ -3,17 +3,19 @@
 import { ReactNode, useState } from 'react'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+export const defaultQueryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      throwOnError: true,
+    },
+  },
+})
 
 const TanstackProvider = (props: { children: ReactNode }) => {
-  const [queryClient] = useState(() => new QueryClient())
+  const [queryClient] = useState(() => defaultQueryClient)
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      {props.children}
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
-  )
+  return <QueryClientProvider client={queryClient}>{props.children}</QueryClientProvider>
 }
 
 export default TanstackProvider

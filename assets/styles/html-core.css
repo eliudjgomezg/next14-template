@@ -1,0 +1,289 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
+
+*{
+	 box-sizing: border-box;
+	 margin: 0;
+	 padding: 0;
+	 scrollbar-color: var(--gray-400) var(--transparent);
+   scrollbar-width: auto;
+}
+
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start: #333;
+  --background-end: #000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start: #222;
+    --background-end: #000;
+  }
+}
+
+.primary-font {
+  font-family: poppins;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, transparent, var(--background-start)) var(--background-end);
+}
+
+.main-background {
+  background: linear-gradient(to bottom, transparent, var(--background-start)) var(--background-end);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h5,
+h6 {
+  font-weight: 600;
+}
+
+p,
+label,
+a,
+li {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+@media only screen and (max-width: 768px) {
+  .p,
+  label,
+  li {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .p,
+  label,
+  li {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+code {
+  font-family: monospace;
+  font-size: inherit !important;
+  font-weight: 400 !important;
+	background-color: #1f2937 !important;
+	color: #3f91e3 !important;
+  border-radius: 4px !important;
+  padding: 2px 4px !important; 
+}
+
+.primary-font {
+  font-family: var(--primary-font) !important;
+}
+
+h1,
+.h1 {
+  font-size: 30px !important;
+  lin: 34px !important;
+}
+@media only screen and (max-width: 768px) {
+  h1, .h1 {
+    font-size: 30px !important;
+    line-height: 34px;
+  }
+}
+@media only screen and (max-width: 640px) {
+  h1, .h1 {
+    font-size: 28px !important;
+    line-height: 32px;
+  }
+}
+
+h2,
+.h2 {
+  font-size: 28px !important;
+  line-height: 32px;
+}
+@media only screen and (max-width: 768px) {
+  h2, .h2 {
+    font-size: 28px !important;
+    line-height: 32px;
+  }
+}
+@media only screen and (max-width: 640px) {
+  h2, .h2 {
+    font-size: 26px !important;
+    line-height: 30px;
+  }
+}
+
+h3,
+.h3 {
+  font-size: 25px !important;
+  line-height: 30px;
+}
+@media only screen and (max-width: 768px) {
+  h3, .h3 {
+    font-size: 25px !important;
+    line-height: 30px;
+  }
+}
+@media only screen and (max-width: 640px) {
+  h3, .h3 {
+    font-size: 23px !important;
+    line-height: 28px;
+  }
+}
+
+h4,
+.h4 {
+  font-size: 23px !important;
+  line-height: 27px;
+}
+@media only screen and (max-width: 768px) {
+  h4, .h4 {
+    font-size: 23px !important;
+    line-height: 27px;
+  }
+}
+@media only screen and (max-width: 640px) {
+  h4, .h4 {
+    font-size: 21px !important;
+    line-height: 25px;
+  }
+}
+
+h5,
+.h5 {
+  font-size: 20px !important;
+  line-height: 24px;
+}
+@media only screen and (max-width: 768px) {
+  h5, .h5 {
+    font-size: 20px !important;
+    line-height: 24px;
+  }
+}
+@media only screen and (max-width: 640px) {
+  h5, .h5 {
+    font-size: 18px !important;
+    line-height: 22px;
+  }
+}
+
+h6,
+.h6 {
+  font-size: 18px !important;
+  line-height: 22px;
+}
+@media only screen and (max-width: 768px) {
+  h6, .h6 {
+    font-size: 18px !important;
+    line-height: 22px;
+  }
+}
+@media only screen and (max-width: 640px) {
+  h6, .h6 {
+    font-size: 16px !important;
+    line-height: 20px;
+  }
+}
+
+.subtitle1 {
+  font-size: 16px !important;
+  line-height: 20px;
+}
+@media only screen and (max-width: 768px) {
+  .subtitle1 {
+    font-size: 16px !important;
+    line-height: 20px;
+  }
+}
+@media only screen and (max-width: 640px) {
+  .subtitle1 {
+    font-size: 16px !important;
+    line-height: 20px; 
+  }
+}
+
+.subtitle2 {
+  font-size: 15px !important;
+  line-height: 18px;
+}
+@media only screen and (max-width: 768px) {
+  .subtitle2 {
+    font-size: 15px !important;
+    line-height: 18px;
+  }
+}
+@media only screen and (max-width: 640px) {
+  .subtitle2 {
+    font-size: 15px !important;
+    line-height: 18px;
+  }
+}
+
+.body1 {
+  font-size: 14px !important;
+  line-height: 20px;
+}
+@media only screen and (max-width: 768px) {
+  .body1 {
+    font-size: 14px !important;
+    line-height: 20px;
+  }
+}
+@media only screen and (max-width: 640px) {
+  .body1 {
+    font-size: 14px !important;
+    line-height: 20px;
+  }
+}
+
+.body2 {
+  font-size: 12px !important;
+  line-height: 16px;
+}
+@media only screen and (max-width: 768px) {
+  .body2 {
+    font-size: 12px !important;
+    line-height: 16px;
+  }
+}
+@media only screen and (max-width: 640px) {
+  .body2 {
+    font-size: 12px !important;
+    line-height: 16px;
+  }
+}
+
+.microcopy {
+  font-size: 9px !important;
+  line-height: 12px;
+}
+@media only screen and (max-width: 768px) {
+  .microcopy {
+    font-size: 9px !important;
+    line-height: 12px;
+  }
+}
+@media only screen and (max-width: 640px) {
+  .microcopy {
+    font-size: 9px !important;
+    line-height: 12px;
+  }
+}

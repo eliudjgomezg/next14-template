@@ -1,19 +1,26 @@
-// import { getSession } from 'next-auth/react'
 
 import autoBind from 'auto-bind'
+import { getSession } from 'next-auth/react'
+import { Session } from 'next-auth/types';
 
+import { auth } from 'auth';
 import { Fetch, Get, Mutation, Post, Put } from 'definitions/types/Request'
 
 import { buildQuery } from './helpers'
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL
+export const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
-const defaultHeader = async () => {
-  // const session = await getSession()
-  // const Authorization = session ? `Bearer ${session?.access_token}` : ''
-  const Authorization = `Bearer`
+const defaultHeader = async (isRunningOnServer: boolean) => {
+  let session: Session | null = null
+  if (isRunningOnServer) {
+    session = await auth()
+  } else {
+    session = await getSession()
+  }
+  const Authorization = session && session.user ? `Bearer ${session?.user?.tokens?.accessToken}` : ''
   return { Authorization }
 }
+
 
 export class APIClient {
   server: string
@@ -28,9 +35,8 @@ export class APIClient {
   async fetch<T, K>(params: Fetch<K>): Promise<T> {
     const { endpoint, method = 'GET', customHeader = undefined, queryParams, responseType = 'json' } = params
     let { body = undefined } = params
-    const defaults = await defaultHeader()
+    const headers = customHeader ? {} : await defaultHeader(this.isRunningOnServer)
     let contentHeader = {}
-    const headers = customHeader ? { ...defaults, ...customHeader } : defaults
 
     const isJsonBody = !this.isRunningOnServer && body && !(body instanceof FormData) && typeof body === 'object'
 
@@ -41,9 +47,11 @@ export class APIClient {
 
     const request = await fetch(`${this.server}${endpoint}${queryParams ? buildQuery(queryParams as Record<string, unknown>) : ''}`, {
       method,
+
       body: body as BodyInit | null | undefined,
       headers: { ...headers, ...contentHeader },
     })
+
     if (request.ok && responseType === 'json') return (await request.json()) as unknown as T
     if (request.ok && responseType === 'blob') return (await request.blob()) as unknown as T
     if (request.ok && responseType === 'text') return (await request.text()) as unknown as T

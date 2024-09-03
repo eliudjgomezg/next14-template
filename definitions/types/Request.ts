@@ -74,7 +74,7 @@ export type ReactQueryOptions = {
     enabled?: boolean
     retry?: boolean | number
     cacheTime?: number
-    refetchOnWindowFocus?: boolean
+    refetchOnWindowFocus?: boolean | 'always'
     useErrorBoundary?: boolean
   }
 }

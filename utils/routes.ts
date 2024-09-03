@@ -1,8 +1,8 @@
-import { Roles } from 'definitions/enums/globals'
+import { RolesEnum } from 'definitions/enums/globals'
 
 export const exampleRoutes = {
   home: { path: '/', allowedRoles: [] },
-  AdminHome: { path: '/plataforma/admin/home', allowedRoles: [Roles.ADMIN] },
+  AdminHome: { path: '/plataforma/admin/home', allowedRoles: [RolesEnum.ADMIN] },
 }
 
 export const auth = {
