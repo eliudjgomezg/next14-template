@@ -1,0 +1,17 @@
+.total-center {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.no-scroll-bar {
+   scrollbar-width: none !important;
+}
+.slider {
+  display: flex;
+  width: 100%;
+  scroll-snap-type: x mandatory;
+  overflow: auto;
+}
+.slider-item {
+  flex: none;
+}

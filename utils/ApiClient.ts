@@ -12,6 +12,7 @@ export const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
 const defaultHeader = async (isRunningOnServer: boolean) => {
   let session: Session | null = null
+
   if (isRunningOnServer) {
     session = await auth()
   } else {
@@ -45,7 +46,9 @@ export class APIClient {
       body = JSON.stringify(body)
     }
 
-    const request = await fetch(`${this.server}${endpoint}${queryParams ? buildQuery(queryParams as Record<string, unknown>) : ''}`, {
+    const url = `${this.server}${endpoint}${queryParams ? buildQuery(queryParams as Record<string, unknown>) : ''}`
+
+    const request = await fetch(url, {
       method,
 
       body: body as BodyInit | null | undefined,

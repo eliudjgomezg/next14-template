@@ -7,6 +7,7 @@
     "enforces-negative-arbitrary-values": "off",
     "react/prop-types": "error",
     "no-redeclare": "off",
+    "react-hooks/exhaustive-deps": "off",
 
     "import/order": [
       "error",

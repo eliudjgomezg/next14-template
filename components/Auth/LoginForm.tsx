@@ -1,60 +1,99 @@
 'use client'
 
-import { signIn } from 'next-auth/react'
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
+
+import { Alert } from '@mui/material'
+import { useForm } from 'react-hook-form'
+
+import { authenticate } from 'services/actions/authSession'
+
+import logo from 'assets/images/brand/logo.png'
+import { LoginBody } from 'definitions/types/Auth'
+import useHandleSearchParams from 'hooks/useHandleSearchParams'
+import useLoader from 'hooks/useLoader'
+import InputField from 'uikit/Forms/InputField'
+
+const inputStyles = 'bg-zinc-50 shadow-md text-black focus:outline-none'
 
 const LoginForm = () => {
-  const signInForm = async () => {
-    await signIn('credentials', { email: 'eliud@gmail.com', password: '123' })
+  const { getSearchParam } = useHandleSearchParams()
+  const form = useForm<LoginBody>()
+  const loader = useLoader()
+
+  const [errorMessage, setErrorMessage] = useState('')
+  const errorQueryParam = getSearchParam('error')
+
+  const login = async (body: LoginBody) => {
+    loader.setIsLoading(true)
+    const sessionStatus = await authenticate(body)
+
+    loader.setIsLoading(false)
+    if (sessionStatus === 'success') return window.location.reload()
+    setErrorMessage(sessionStatus)
   }
 
+  useEffect(() => {
+    if (errorQueryParam) setErrorMessage(errorQueryParam)
+  }, [errorQueryParam])
+
+  useEffect(() => {
+    errorMessage && setErrorMessage('')
+  }, [form.watch('email'), form.watch('password')])
+
   return (
-    <main className="flex items-center justify-center md:h-screen">
-      <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
-        <div className="space-y-3">
-          <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-            <h1 className={`mb-3 text-2xl text-black`}>Iniciar sesión</h1>
-            <div className="w-full">
-              <div>
-                <label className="mb-3 mt-5 block text-xs font-medium text-gray-900" htmlFor="email">
-                  Email
-                </label>
-                <div className="relative">
-                  <input
-                    className="peer block w-full rounded-md text-black border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-                    id="email"
-                    type="email"
-                    name="email"
-                    placeholder="Ingresa tu correo"
-                    required
-                  />
-                  <p>O</p>
-                </div>
-              </div>
-              <div className="mt-4">
-                <label className="mb-3 mt-5 block text-xs font-medium text-gray-900" htmlFor="password">
-                  Password
-                </label>
-                <div className="relative">
-                  <input
-                    className="peer block w-full rounded-md border text-black border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-                    id="password"
-                    type="password"
-                    name="password"
-                    placeholder="Ingresa tu contraseña"
-                    required
-                    minLength={6}
-                  />
-                  <p>O</p>
-                </div>
-              </div>
-            </div>
-            <button className="bg-black text-white mx-auto my-12 p-8 w-full" onClick={signInForm}>
-              Sign in
-            </button>
+    <section className="total-center h-svh">
+      <div className="mx-auto w-full max-w-[450px] rounded-lg border-4 border-primary-color bg-white px-4 shadow-lg md:px-0">
+        <div className="md:mx-6 md:p-12">
+          <div className="mt-8 text-center">
+            <Image className="mx-auto" width={200} src={logo} alt="logo" />
           </div>
+
+          <form onSubmit={form.handleSubmit(login)}>
+            <h6 className="mt-6 text-center font-normal text-black">
+              Bienvenid@ al <span className="text-primary-color underline">Platform_name</span>, <br />
+            </h6>
+
+            <InputField
+              name="email"
+              className="mt-6 w-full"
+              inputProps={{ className: inputStyles, placeholder: 'Correo electrónico' }}
+              options={{ required: 'Este campo es requerido.' }}
+              form={form}
+            />
+
+            <InputField
+              name="password"
+              className="mt-4 w-full"
+              inputProps={{ className: inputStyles, type: 'password', placeholder: 'Contraseña' }}
+              options={{ required: 'Este campo es requerido.' }}
+              form={form}
+            />
+
+            <div className="my-12 py-1">
+              <button
+                className="shadow-dark-3 hover:shadow-dark-2 focus:shadow-dark-2 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong mb-3 inline-block w-full rounded-lg  px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out focus:outline-none focus:ring-0"
+                type="submit"
+                data-twe-ripple-init
+                data-twe-ripple-color="light"
+                style={{ background: 'linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)' }}
+              >
+                Iniciar sesión
+              </button>
+
+              {/* <a className="text-black text-center" href="#!">
+                Forgot password?
+              </a> */}
+              {errorMessage && (
+                <Alert severity="error" className="mt-2">
+                  {errorMessage}
+                </Alert>
+              )}
+            </div>
+          </form>
         </div>
       </div>
-    </main>
+    </section>
   )
 }
 

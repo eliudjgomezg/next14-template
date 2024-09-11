@@ -3,7 +3,7 @@
     "**/.git": true,
     "**/.next": false,
     // "**/node_modules": true,
-    "**/.husky": true,
+    // "**/.husky": true,
     // ".eslintcache": true,
     // ".prettierrc": true,
     // ".prettierignore": true,

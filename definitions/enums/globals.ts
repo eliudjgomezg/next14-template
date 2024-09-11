@@ -5,6 +5,4 @@ export enum ApiVersionEnum {
 
 export enum RolesEnum {
   ADMIN = 'admin',
-  TEACHER = 'teacher',
-  STUDENT = 'alumno',
 }

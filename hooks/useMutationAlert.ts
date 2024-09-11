@@ -1,9 +1,12 @@
-import { useQueryClient } from '@tanstack/react-query'
+import { useEffect } from 'react'
+
+import { UseMutationResult } from '@tanstack/react-query'
 import { useSnackbar } from 'notistack'
 
 import useLoader from './useLoader'
 
-type Params = {
+type Params<T, P> = {
+  mutation: UseMutationResult<T, unknown, P, unknown>
   refreshKey?: string
   successMessage?: string
   noSuccessAlert?: boolean
@@ -14,10 +17,11 @@ type Params = {
 }
 
 const SUCCESS_MESSAGE = 'Los cambios se realizaron exitosamente'
-const ERROR_MESSAGE = 'Ubo un error. Intentalo nuevamente'
+const ERROR_MESSAGE = 'Hubo un error. Intentalo nuevamente'
 
-export const useMutationAlert = (params: Params) => {
+export const useMutationAlert = <T, P>(params: Params<T, P>) => {
   const {
+    mutation: request,
     noErrorAlert = false,
     noSuccessAlert = false,
     noLoader = false,
@@ -25,22 +29,23 @@ export const useMutationAlert = (params: Params) => {
     successMessage = SUCCESS_MESSAGE,
     errorMessage = ERROR_MESSAGE,
   } = params
-  const { invalidateQueries } = useQueryClient()
-  const { enqueueSnackbar } = useSnackbar()
-  const loader = useLoader()
 
-  return {
-    onSettled: () => !noLoader && loader.setIsLoading(true),
-    onSuccess: () => {
-      !noLoader && loader.setIsLoading(false)
-      !noSuccessAlert && enqueueSnackbar({ message: successMessage, autoHideDuration, variant: 'success' })
-      params.refreshKey && invalidateQueries({ queryKey: [params.refreshKey] })
-    },
-    onError: () => {
-      !noLoader && loader.setIsLoading(false)
-      !noErrorAlert && enqueueSnackbar({ message: errorMessage, autoHideDuration, variant: 'error' })
-    },
-  }
+  const { enqueueSnackbar } = useSnackbar()
+  useLoader({ request, noLoader })
+
+  useEffect(() => {
+    if (request.isError && !noErrorAlert) {
+      enqueueSnackbar(errorMessage, {
+        variant: 'error'
+      })
+    }
+    if (request.isSuccess && !noSuccessAlert) {
+      enqueueSnackbar(successMessage, {
+        variant: 'success',
+        autoHideDuration: autoHideDuration ?? 5000
+      })
+    }
+  }, [request.isError, request.isSuccess])
 }
 
 export default useMutationAlert
