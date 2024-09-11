@@ -24,17 +24,7 @@ type TFooter = {
 }
 
 const CustomDialog = styled(Dialog)(() => ({
-  '& .css-1jdob15': { borderRadius: '1rem', backgroundColor: 'var(--black)', border: '1px solid var(--white)' },
-  '& .css-uhb5lp': { borderRadius: '1rem', backgroundColor: 'var(--black)', border: '1px solid var(--white)' },
-  '& .css-1qmc5dd': { borderRadius: '1rem', backgroundColor: 'var(--black)', border: '1px solid var(--white)' },
-  '& .css-18i3v7t': { borderRadius: '1rem', backgroundColor: 'var(--black)', border: '1px solid var(--white)' },
-  '& .css-hppdow': { borderRadius: '1rem', backgroundColor: 'var(--black)', border: '1px solid var(--white)' },
-  '& .css-1t1j96h-MuiPaper-root-MuiDialog-paper': { borderRadius: '1rem', backgroundColor: 'var(--black)', border: '1px solid var(--white)' },
-  '& .css-22jxwj-MuiPaper-root-MuiDialog-paper': { borderRadius: '1rem', backgroundColor: 'var(--black)', border: '1px solid var(--white)' },
-  '& .css-12rl710-MuiPaper-root-MuiDialog-paper': { borderRadius: '1rem', backgroundColor: 'var(--black)', border: '1px solid var(--white)' },
-  '& .css-1fu2e3p-MuiPaper-root-MuiDialog-paper': { borderRadius: '1rem', backgroundColor: 'var(--black)', border: '1px solid var(--white)' },
-  '& .css-2rbg70-MuiPaper-root-MuiDialog-paper': { borderRadius: '1rem', backgroundColor: 'var(--black)', border: '1px solid var(--white)' },
-  '& .css-m9glnp-MuiPaper-root-MuiDialog-paper': { backgroundColor: 'var(--black)' },
+  '& .MuiDialog-paper': { borderRadius: '1rem', backgroundColor: 'var(--black)', border: '1px solid var(--white)' },
 }))
 
 const Transition = forwardRef(function Transition(
@@ -47,7 +37,7 @@ const Transition = forwardRef(function Transition(
 })
 
 const Modal = (props: ModalProps) => {
-  const { headerColor = 'black' } = props
+  const { headerColor = 'white' } = props
   const fullScreenStyles = props.fullScreen ? 'bg-black text-white' : 'rounded-t-[1rem]'
   const modalPadding = props.noContainerSpacing ? '' : 'md:px-6 px-4 md:pt-6 pt-4'
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -91,7 +81,7 @@ const Modal = (props: ModalProps) => {
       {!props.noHeader && (
         <div
           className={cn(`flex h-12 items-center bg-white px-4 py-3 md:px-6`, fullScreenStyles)}
-          style={{ backgroundColor: `var(--${String(headerColor)})` }}
+          style={{ backgroundColor: `var(--${headerColor})` }}
         >
           <h4>{props.title}</h4>
         </div>
@@ -106,7 +96,7 @@ const Modal = (props: ModalProps) => {
 
 export const Footer = (props: TFooter) => {
   return (
-    <div className="sticky bottom-0 z-[999999] w-full bg-black py-3 md:py-5">
+    <div className="sticky bottom-0 z-[999999] w-full bg-black py-3 md:py-5 mt-px">
       <Divider className="mb-3 bg-gray-500 md:mb-4" />
       <div className={`${props.className}`}>{props.children}</div>
     </div>

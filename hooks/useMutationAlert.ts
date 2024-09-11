@@ -35,7 +35,8 @@ export const useMutationAlert = <T, P>(params: Params<T, P>) => {
 
   useEffect(() => {
     if (request.isError && !noErrorAlert) {
-      enqueueSnackbar(errorMessage, {
+      const httpError = request.error
+      enqueueSnackbar((httpError as { message: string }).message ?? errorMessage, {
         variant: 'error'
       })
     }
