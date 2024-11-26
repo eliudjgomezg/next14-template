@@ -1,7 +1,6 @@
-import { forwardRef, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { Dialog, Divider, Slide, styled } from '@mui/material'
-import { TransitionProps } from '@mui/material/transitions'
+import { Dialog, Divider, styled } from '@mui/material'
 
 import { Colors } from 'definitions/types/Colors'
 import { cn } from 'utils/helpers'
@@ -26,15 +25,6 @@ type TFooter = {
 const CustomDialog = styled(Dialog)(() => ({
   '& .MuiDialog-paper': { borderRadius: '1rem', backgroundColor: 'var(--black)', border: '1px solid var(--white)' },
 }))
-
-const Transition = forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement
-  },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />
-})
 
 const Modal = (props: ModalProps) => {
   const { headerColor = 'white' } = props
@@ -70,7 +60,6 @@ const Modal = (props: ModalProps) => {
   return (
     <CustomDialog
       open={isModalOpen}
-      TransitionComponent={Transition}
       keepMounted
       disableEnforceFocus
       maxWidth={props.size ?? 'sm'}
